@@ -8,22 +8,28 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-
-
-export const useStyles = makeStyles(() =>
-    createStyles({
-    }));
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup'
+import { registerSchema } from '../utils/validations';
+import { useState } from 'react'
 
 const theme = createTheme({
 
 });
 
 export default function LogIn() {
-    const classes = useStyles();
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    };
+    const [disabled, setDisabled] = useState(null);
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(registerSchema)
+    })
+
+    const onSubmit = (data) => {
+        console.log('Submitted')
+        console.log(data)
+    }
+
+    const error = errors?.name?.message
+    const hasError = Boolean(error);
 
     return (
         <ThemeProvider theme={theme}>
@@ -40,7 +46,7 @@ export default function LogIn() {
                     <Typography component="h1" variant="h5">
                         Welcome back
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -51,7 +57,9 @@ export default function LogIn() {
                             autoComplete="email"
                             autoFocus
                             size="small"
+                            {...register("email")}
                         />
+
                         <TextField
                             margin="normal"
                             required
@@ -62,7 +70,9 @@ export default function LogIn() {
                             id="password"
                             autoComplete="current-password"
                             size="small"
+                            {...register('password')}
                         />
+
                         <Link href="#" variant="body2">
                             Forgot password
                         </Link>
@@ -71,6 +81,7 @@ export default function LogIn() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+
                         >
                             LOG IN
                         </Button>
