@@ -18,7 +18,7 @@ const theme = createTheme({
 });
 
 export default function LogIn() {
-    const [disabled, setDisabled] = useState(null);
+    const [disabled, setDisabled] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(registerSchema)
     })
@@ -28,8 +28,29 @@ export default function LogIn() {
         console.log(data)
     }
 
-    const error = errors?.name?.message
-    const hasError = Boolean(error);
+    const FIELDS = [
+        {
+            name: 'email',
+            componentProps: {
+                margin: 'normal',
+                fullWidth: true,
+                label: 'Email address',
+                size: 'small'
+            }
+        },
+        {
+            name: 'password',
+            componentProps: {
+                margin: 'normal',
+                fullWidth: true,
+                label: 'Password',
+                size: 'small',
+                type: 'password',
+                autoComplete: 'current-password'
+            }
+        }
+
+    ]
 
     return (
         <ThemeProvider theme={theme}>
@@ -44,34 +65,27 @@ export default function LogIn() {
                     }}
                 >
                     <Typography component="h1" variant="h5">
-                        Welcome back
+                        WELCOME BACK!
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            size="small"
-                            {...register("email")}
-                        />
+                        {FIELDS.map(({ name, componentProps }, index) => {
+                            const error = errors?.name?.message;
+                            const hasError = Boolean(error);
+                            return (
+                                <TextField
+                                    key={`${name}-${index}`}
+                                    {...componentProps}
+                                    {...register(name)}
+                                >
 
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            size="small"
-                            {...register('password')}
-                        />
+                                    {hasError && (
+                                        <TextField
+                                            helperText={error}
+                                        />
+                                    )}
+                                </TextField>
+                            )
+                        })}
 
                         <Link href="#" variant="body2">
                             Forgot password
@@ -81,7 +95,7 @@ export default function LogIn() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-
+                        //disabled={setDisabled}
                         >
                             LOG IN
                         </Button>
