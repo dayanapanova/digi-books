@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { registerSchema } from '../utils/validations';
 import { useState } from 'react'
+import LogoComponent from '../assets/LogoComponent'
 
 const theme = createTheme({
 
@@ -64,6 +65,7 @@ export default function LogIn() {
                         alignItems: 'center',
                     }}
                 >
+                    <LogoComponent />
                     <Typography component="h1" variant="h5">
                         WELCOME BACK!
                     </Typography>
