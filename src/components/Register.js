@@ -58,7 +58,7 @@ export default function LogIn() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Grid container spacing={1}>
-                <Grid item md={4}>
+                <Grid item md={4} >
                     <Box
                         sx={{
                             marginTop: 8,
