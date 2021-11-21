@@ -1,10 +1,30 @@
-import Register from './components/Register'
+import { Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import RequireAuth from './components/RequireAuth';
+import Header from './components/Header';
+import Books from './containers/Books';
+import Login from './containers/Login';
+import Register from './containers/Register';
 
 function App() {
+  const { isAuthenticated } = useSelector(({ authenticationState }) => authenticationState);
+
   return (
-    <>
-      <Register />
-    </>
+    <div>
+      {isAuthenticated && (
+        <Header />
+      )}
+      <Routes>
+        <Route path="/" element={
+          <RequireAuth>
+            <Books />
+          </RequireAuth>
+        }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </div>
   );
 }
 
