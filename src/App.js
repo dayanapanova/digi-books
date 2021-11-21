@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import RequireAuth from './components/RequireAuth';
 import Header from './components/Header';
 import Books from './containers/Books';
+import SingleBook from './containers/SingleBook';
 import Login from './containers/Login';
 import Register from './containers/Register';
 
@@ -15,14 +16,20 @@ function App() {
         <Header />
       )}
       <Routes>
-        <Route path="/" element={
+        <Route path='/' element={
           <RequireAuth>
             <Books />
           </RequireAuth>
         }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path='/books/:bookID' element={
+          <RequireAuth>
+            <SingleBook />
+          </RequireAuth>
+        }
+        />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </div>
   );

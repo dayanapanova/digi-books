@@ -28,7 +28,7 @@ const RegisterContainer = () => {
         resolver: yupResolver(validations)
     });
 
-    const { registerIsLoading } = useSelector(({ authenticationState }) => authenticationState);
+    const registerIsLoading = useSelector(({ authenticationState: { registerIsLoading } }) => registerIsLoading);
 
     const onSubmit = ({ username, password }) => dispatch(signUp({ username, password }, navigate));
 

@@ -1,5 +1,7 @@
-import React from 'react'
-import { Grid, Box, Typography } from '@mui/material'
+import React, { useEffect } from 'react';
+import { Grid, Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import LogoSVG from '../svg/LogoSVG';
 import authBackgroundPNG from '../assets/authBackground.png';
@@ -32,38 +34,51 @@ const Background = styled('div')`
   }
 `;
 
-const AuthLayout = ({ title, subtitle, children }) => (
-    <Layout>
-        <Grid container spacing={1}>
-            <Grid item md={5}>
-                <Content>
-                    <div>
-                        <Box textAlign='center'>
-                            <Box mb={3}>
-                                <LogoSVG />
-                            </Box>
-                            <Box mb={3}>
-                                <Typography component="h1" variant="h6">
-                                    {title}
-                                </Typography>
-                                {Boolean(subtitle) && (
-                                    <Typography component="h1" variant="subtitle1">
-                                        {subtitle}
+const AuthLayout = ({ title, subtitle, children }) => {
+    const navigate = useNavigate();
+
+    const { isAuthenticated } = useSelector(({ authenticationState }) => authenticationState);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isAuthenticated]);
+
+    return (
+        <Layout>
+            <Grid container spacing={1}>
+                <Grid item md={5}>
+                    <Content>
+                        <div>
+                            <Box textAlign='center'>
+                                <Box mb={3}>
+                                    <LogoSVG />
+                                </Box>
+                                <Box mb={3}>
+                                    <Typography component="h1" variant="h6">
+                                        {title}
                                     </Typography>
-                                )}
+                                    {Boolean(subtitle) && (
+                                        <Typography component="h1" variant="subtitle1">
+                                            {subtitle}
+                                        </Typography>
+                                    )}
+                                </Box>
                             </Box>
-                        </Box>
-                        {children}
-                    </div>
-                </Content>
+                            {children}
+                        </div>
+                    </Content>
+                </Grid>
+                <Grid item md={7}>
+                    <Background>
+                        <img src={authBackgroundPNG} alt={title} />
+                    </Background>
+                </Grid>
             </Grid>
-            <Grid item md={7}>
-                <Background>
-                    <img src={authBackgroundPNG} alt={title} />
-                </Background>
-            </Grid>
-        </Grid>
-    </Layout>
-);
+        </Layout>
+    );
+}
 
 export default AuthLayout;

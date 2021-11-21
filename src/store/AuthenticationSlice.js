@@ -23,6 +23,7 @@ export const AuthenticationSlice = createSlice({
             localStorage.setItem('token', token);
             state.isAuthenticated = true;
             state.loginIsLoading = false;
+            toast.success('You have been logged in successfully!');
         },
         loginError: (state) => {
             state.loginIsLoading = false;

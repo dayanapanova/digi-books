@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Typography, Box, Link } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,17 +24,7 @@ const LoginContainer = () => {
         resolver: yupResolver(validations)
     });
 
-    const {
-        loginIsLoading,
-        isAuthenticated,
-    } = useSelector(({ authenticationState }) => authenticationState);
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate('/');
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isAuthenticated]);
+    const loginIsLoading = useSelector(({ authenticationState: { loginIsLoading } }) => loginIsLoading);
 
     const onSubmit = ({ username, password }) => dispatch(signIn({ username, password }));
 

@@ -1,5 +1,6 @@
 import { AppBar, IconButton as MuiIconButton, Stack, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LogoSVG from '../svg/LogoSVG';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -16,6 +17,7 @@ const HeaderWrapper = styled('div')`
 
 const Logo = styled(LogoSVG)`
   width: 140px;
+  cursor: pointer;
 `;
 
 const IconButton = styled(MuiIconButton)`
@@ -27,13 +29,14 @@ const IconButton = styled(MuiIconButton)`
 
 const Header = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     return (
         <AppBar color='default'>
             <Container>
                 <HeaderWrapper>
                     <div>
-                        <Logo />
+                        <Logo onClick={() => navigate('/')} />
                     </div>
                     <Stack direction='row' spacing={1}>
                         <IconButton color='inherit'>
