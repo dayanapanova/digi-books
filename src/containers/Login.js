@@ -3,9 +3,9 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Typography, Box, Link } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import AuthLayout from '../layouts/AuthLayout';
+import AuthLayout, { AuthLink } from '../layouts/AuthLayout';
 import Form from '../components/Form';
 import { signIn } from '../store/AuthenticationSlice';
 
@@ -20,9 +20,18 @@ const LoginContainer = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm({
         resolver: yupResolver(validations)
     });
+
+    const usernameValue = watch('username');
+    const passwordValue = watch('password');
+    const canSubmit = Boolean(usernameValue) && Boolean(passwordValue);
 
     const loginIsLoading = useSelector(({ authenticationState: { loginIsLoading } }) => loginIsLoading);
 
@@ -47,9 +56,11 @@ const LoginContainer = () => {
                 register={register}
                 errors={errors}
                 isLoading={loginIsLoading}
+                buttonColor='secondary'
+                canSubmit={canSubmit}
             />
             <Box textAlign='center' mt={4}>
-                <Typography>You don’t have an account? <Link onClick={() => navigate('/register')}>SIGN UP HERE</Link></Typography>
+                <Typography>You don’t have an account? <AuthLink onClick={() => navigate('/register')}>SIGN UP HERE</AuthLink></Typography>
             </Box>
         </AuthLayout>
     );

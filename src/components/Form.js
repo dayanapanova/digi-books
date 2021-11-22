@@ -27,6 +27,8 @@ const FormComponent = ({
     register,
     buttonText,
     isLoading,
+    canSubmit,
+    buttonColor = 'primary',
 }) => (
     <Form onSubmit={onSubmit}>
         <Fade in={isLoading}>
@@ -53,9 +55,11 @@ const FormComponent = ({
         })}
         <Box mt={3}>
             <Button
-                type="submit"
+                type='submit'
+                variant='contained'
                 fullWidth
-                variant="contained"
+                color={buttonColor}
+                disabled={!canSubmit}
             >
                 {buttonText}
             </Button>
