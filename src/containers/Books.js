@@ -24,7 +24,7 @@ const ItemLoader = styled('div')`
   display: flex;
 
   > div {
-      &:first-child {
+      &:first-of-type {
         width: 100px;
       }
 

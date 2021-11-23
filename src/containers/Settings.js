@@ -81,8 +81,8 @@ const NavItem = styled(Button)(({ theme }) => `
 
 const SettingsNav = ({ items }) => (
     <Stack spacing={1} mt={3}>
-        {items?.map(({ label }) => (
-            <NavItem endIcon={<ArrowRightIcon />}>{label}</NavItem>
+        {items?.map(({ label }, index) => (
+            <NavItem key={`settings-nav-item-${label}-${index}`} endIcon={<ArrowRightIcon />}>{label}</NavItem>
         ))}
     </Stack>
 );

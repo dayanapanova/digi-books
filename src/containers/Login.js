@@ -3,14 +3,15 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthLayout, { AuthLink } from '../layouts/AuthLayout';
 import Form from '../components/Form';
 import { signIn } from '../store/AuthenticationSlice';
+import PasswordInput from '../components/PasswordInput';
 
 export const validations = Yup.object().shape({
-    username: Yup.string().required(),
+    username: Yup.string().min(4).required(),
     password: Yup.string()
         .required().min(8).max(250)
         .label('Password'),
@@ -42,10 +43,12 @@ const LoginContainer = () => {
             <Form
                 fields={[
                     {
+                        field: TextField,
                         name: 'username',
                         label: 'Username',
                     },
                     {
+                        field: PasswordInput,
                         name: 'password',
                         label: 'Password',
                         type: 'password',

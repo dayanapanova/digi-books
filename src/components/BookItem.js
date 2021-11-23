@@ -80,36 +80,36 @@ const MoreButton = styled('div')(({ theme }) => `
 `);
 
 const BookItemComponent = ({ onDetailClick, name, image, author, genre, createOn, lastUpdateOn }) => {
-    const theme = useTheme();
-    const hasCreatedDate = Boolean(createOn);
-    const hasUpdatedDate = Boolean(lastUpdateOn);
-    return (
-        <BookItem onClick={onDetailClick}>
-            <Image>
-                <img src={image} alt={name} />
-            </Image>
-            <Content>
-                <Title mb={1} variant='h6'>{name}</Title>
-                <Typography mb={1} variant='body2' color={theme.palette.primary.main} fontWeight={600}>{author}</Typography>
-                <Typography mb={1} variant='body2'>Genre: <strong>{genre}</strong></Typography>
-                <Grid container spacing={2}>
-                    {hasCreatedDate && (
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant='body2'>Created: <strong>{formatDate(new Date(createOn))}</strong></Typography>
-                        </Grid>
-                    )}
-                    {hasUpdatedDate && (
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant='body2'>Updated: <strong>{formatDate(new Date(lastUpdateOn))}</strong></Typography>
-                        </Grid>
-                    )}
-                </Grid>
-            </Content>
-            <MoreButton onClick={onDetailClick}>
-                <ArrowIcon />
-            </MoreButton>
-        </BookItem>
-    );
+  const theme = useTheme();
+  const hasCreatedDate = Boolean(createOn);
+  const hasUpdatedDate = Boolean(lastUpdateOn);
+  return (
+    <BookItem onClick={onDetailClick}>
+      <Image>
+        <img src={image} alt={name} />
+      </Image>
+      <Content>
+        <Title mb={1} variant='h6'>{name}</Title>
+        <Typography mb={1} variant='body2' color={theme.palette.primary.main} fontWeight={600}>{author}</Typography>
+        <Typography mb={1} variant='body2'>Genre: <strong>{genre}</strong></Typography>
+        <Grid container spacing={2}>
+          {hasCreatedDate && (
+            <Grid item xs={12} sm={6}>
+              <Typography variant='body2'>Created: <strong>{formatDate(new Date(createOn))}</strong></Typography>
+            </Grid>
+          )}
+          {hasUpdatedDate && (
+            <Grid item xs={12} sm={6}>
+              <Typography variant='body2'>Updated: <strong>{formatDate(new Date(lastUpdateOn))}</strong></Typography>
+            </Grid>
+          )}
+        </Grid>
+      </Content>
+      <MoreButton onClick={onDetailClick}>
+        <ArrowIcon />
+      </MoreButton>
+    </BookItem>
+  );
 }
 
 export default BookItemComponent;

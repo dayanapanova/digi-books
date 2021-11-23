@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import { Button, TextField, Box, Fade, CircularProgress } from '@mui/material';
+import { Button, Box, Fade, CircularProgress } from '@mui/material';
 
 const Form = styled('form')`
   position: relative;
@@ -37,11 +37,11 @@ const FormComponent = ({
             </Loading>
         </Fade>
         {fields.map((props, index) => {
-            const { name } = props;
+            const { name, field: Field } = props;
             const error = errors?.[name]?.message;
             const hasError = Boolean(error);
             return (
-                <TextField
+                <Field
                     key={`${name}-${index}`}
                     error={hasError}
                     helperText={error}
