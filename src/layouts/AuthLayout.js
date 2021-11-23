@@ -33,7 +33,14 @@ const Content = styled('div')(({ theme }) => `
   padding: 20px;
 
   ${theme.breakpoints.up('sm')} {
-    padding: 100px;
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ${theme.breakpoints.up('md')} {
+    padding: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,15 +104,15 @@ const AuthLayout = ({ title, subtitle, children }) => {
                     <Content>
                         {isUpSm ? (
                             <Box textAlign='center'>
-                                <Box mb={3}>
+                                <Box mb={5}>
                                     <Logo />
                                 </Box>
                                 <Box mb={3}>
-                                    <Typography component="h1" variant="h6">
+                                    <Typography component="h2" variant="h5" mb={2}>
                                         {title}
                                     </Typography>
                                     {Boolean(subtitle) && (
-                                        <Typography component="h1" variant="subtitle1">
+                                        <Typography component="h4" variant="h6">
                                             {subtitle}
                                         </Typography>
                                     )}

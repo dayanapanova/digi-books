@@ -30,9 +30,22 @@ const theme = createTheme({
                 root: {
                     fontWeight: 600,
                 },
+                containedPrimary: {
+                    color: '#fff',
+                    '&.Mui-disabled': {
+                        background: '#1076B5',
+                        color: '#fff',
+                        opacity: 0.5,
+                    },
+                },
                 containedSecondary: {
                     color: '#fff',
-                }
+                    '&.Mui-disabled': {
+                        background: '#08C642',
+                        color: '#fff',
+                        opacity: 0.5,
+                    },
+                },
             }
         },
         MuiTypography: {

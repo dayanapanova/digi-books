@@ -3,15 +3,14 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Typography, Box, TextField } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthLayout, { AuthLink } from '../layouts/AuthLayout';
 import Form from '../components/Form';
 import { signUp } from '../store/AuthenticationSlice';
-import PasswordInput from '../components/PasswordInput';
 
 export const validations = Yup.object().shape({
-    username: Yup.string().min(4).required(),
+    username: Yup.string().required(),
     passwordFirst: Yup.string()
         .required().min(8).max(250)
         .label('Password'),
@@ -47,18 +46,15 @@ const RegisterContainer = () => {
             <Form
                 fields={[
                     {
-                        field: TextField,
                         name: 'username',
                         label: 'Username',
                     },
                     {
-                        field: PasswordInput,
                         name: 'passwordFirst',
                         label: 'Password',
                         type: 'password',
                     },
                     {
-                        field: PasswordInput,
                         name: 'password',
                         label: 'Repeat password',
                         type: 'password',
@@ -72,7 +68,7 @@ const RegisterContainer = () => {
                 canSubmit={canSubmit}
             />
             <Box textAlign='center' mt={4}>
-                <Typography>You have an account? <AuthLink onClick={() => navigate('/login')}>LOG IN HERE</AuthLink></Typography>
+                <Typography variant='body2'>You have an account? <AuthLink onClick={() => navigate('/login')}>LOG IN HERE</AuthLink></Typography>
             </Box>
         </AuthLayout>
     );
