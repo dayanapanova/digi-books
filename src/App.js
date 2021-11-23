@@ -6,6 +6,7 @@ import Books from './containers/Books';
 import SingleBook from './containers/SingleBook';
 import Login from './containers/Login';
 import Register from './containers/Register';
+import Settings from './containers/Settings';
 
 function App() {
   const { isAuthenticated } = useSelector(({ authenticationState }) => authenticationState);
@@ -25,6 +26,12 @@ function App() {
         <Route path='/books/:bookID' element={
           <RequireAuth>
             <SingleBook />
+          </RequireAuth>
+        }
+        />
+        <Route path='/settings' element={
+          <RequireAuth>
+            <Settings />
           </RequireAuth>
         }
         />

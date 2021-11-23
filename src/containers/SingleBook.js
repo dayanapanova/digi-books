@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { styled, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useParams } from 'react-router-dom';
-import { Grid, Card, Typography, Box } from '@mui/material';
+import { Grid, Card, Typography, Box, Skeleton } from '@mui/material';
 import DefaultLayout from '../layouts/Default';
 import { getSingleBook } from '../store/BooksSlice';
 import formatDate from '../utils/formatDate';
@@ -52,65 +52,82 @@ const SingleBook = () => {
     return (
         <DefaultLayout>
             {!singleBooksLoading ? (
-                <Grid container alignItems='center' justifyContent='center'>
-                    <Grid item xs={8} sm={3} md={4}>
-                        <Image>
-                            <img src={singleBook?.image} alt={bookName} />
-                        </Image>
+                <div>
+                    {!bookNotFound && (
+                        <Grid container alignItems='center' justifyContent='center'>
+                            <Grid item xs={8} sm={4} md={4}>
+                                <Image>
+                                    <img src={singleBook?.image} alt={bookName} />
+                                </Image>
+                            </Grid>
+                            <Grid item xs={12} md={8}>
+                                <Card>
+                                    <Title>
+                                        <Box p={isUpSm ? 3 : 2}>
+                                            <Typography variant='h4'>{bookName}</Typography>
+                                        </Box>
+                                    </Title>
+
+                                    <Box p={isUpSm ? 3 : 2}>
+                                        <Typography
+                                            mb={3}
+                                            color={theme.palette.primary.main}
+                                            variant='body1'
+                                            fontWeight={600}
+                                        >
+                                            {singleBook?.author}
+                                        </Typography>
+
+                                        {hasCreatedDate && (
+                                            <Typography
+                                                mb={3}
+                                                variant='body1'
+                                            >
+                                                Created on: <strong>{formatDate(new Date(singleBook?.createOn))}</strong>
+                                            </Typography>
+                                        )}
+
+                                        {hasUpdatedDate && (
+                                            <Typography
+                                                mb={3}
+                                                variant='body1'
+                                            >
+                                                Updated on: <strong>{formatDate(new Date(singleBook?.lastUpdateOn))}</strong>
+                                            </Typography>
+                                        )}
+
+                                        <Typography fontWeight={600} mb={2}>Short description</Typography>
+
+                                        <Typography variant='body2'>
+                                            Harry Potter and the Goblet of Fire is a fantasy novel written by British author J. K. Rowling and the fourth novel in the Harry Potter series. It follows Harry Potter, a wizard in his fourth year at Hogwarts School of Witchcraft and Wizardry, and the mystery surrounding the entry of Harry’s name into the Triwizard Tournament, in which he is forced to compete. The book was published in the United Kingdom by Bloomsbury and in the United States by Scholastic. In both countries, the release date was 8 July 2000. This was the first time a book in the series was published in both countries at the same time. The novel won a Hugo Award, the only Harry Potter novel to do so, in 2001. The book was adapted into a film, released worldwide on 18 November 2005, and a video game by Electronic Arts.
+                                        </Typography>
+                                    </Box>
+                                </Card>
+                            </Grid>
+                        </Grid>
+                    )}
+                </div>
+            ) : (
+                <Grid container justifyContent='center' alignItems='center' pt={6} spacing={4}>
+                    <Grid item xs={8} sm={4} md={4}>
+                        <Skeleton variant='rectangular' width='100%' height={400} />
                     </Grid>
-                    <Grid item xs={12} sm={9} md={8}>
-                        <Card>
-                            <Title>
-                                <Box p={isUpSm ? 3 : 2}>
-                                    <Typography variant='h4'>{bookName}</Typography>
-                                </Box>
-                            </Title>
-
-                            <Box p={isUpSm ? 3 : 2}>
-                                <Typography
-                                    mb={3}
-                                    color={theme.palette.primary.main}
-                                    variant='body1'
-                                    fontWeight={600}
-                                >
-                                    {singleBook?.author}
-                                </Typography>
-
-                                {hasCreatedDate && (
-                                    <Typography
-                                        mb={3}
-                                        variant='body1'
-                                    >
-                                        Created on: <strong>{formatDate(new Date(singleBook?.createOn))}</strong>
-                                    </Typography>
-                                )}
-
-                                {hasUpdatedDate && (
-                                    <Typography
-                                        mb={3}
-                                        variant='body1'
-                                    >
-                                        Updated on: <strong>{formatDate(new Date(singleBook?.lastUpdateOn))}</strong>
-                                    </Typography>
-                                )}
-
-                                <Typography fontWeight={600} mb={2}>Short description</Typography>
-
-                                <Typography variant='body2'>
-                                    Harry Potter and the Goblet of Fire is a fantasy novel written by British author J. K. Rowling and the fourth novel in the Harry Potter series. It follows Harry Potter, a wizard in his fourth year at Hogwarts School of Witchcraft and Wizardry, and the mystery surrounding the entry of Harry’s name into the Triwizard Tournament, in which he is forced to compete. The book was published in the United Kingdom by Bloomsbury and in the United States by Scholastic. In both countries, the release date was 8 July 2000. This was the first time a book in the series was published in both countries at the same time. The novel won a Hugo Award, the only Harry Potter novel to do so, in 2001. The book was adapted into a film, released worldwide on 18 November 2005, and a video game by Electronic Arts.
-                                </Typography>
-                            </Box>
-                        </Card>
+                    <Grid item xs={12} md={8}>
+                        <Skeleton variant='text' width='100%' height={70} />
+                        <Skeleton variant='text' width='100%' height={40} />
+                        <Skeleton variant='text' width='100%' height={30} />
+                        <Skeleton variant='text' width='100%' height={30} />
+                        <Skeleton variant='text' width='100%' height={30} />
+                        <Skeleton variant='text' width='100%' height={30} />
+                        <Skeleton variant='text' width='100%' height={30} />
                     </Grid>
                 </Grid>
-            ) : (
-                <p>Loading</p>
             )}
             {bookNotFound && (
-                <div>
-                    <h1>404</h1>
-                    <p>Book not found</p>
-                </div>
+                <Box textAlign='center' pt={10}>
+                    <Typography variant='h1'>404</Typography>
+                    <Typography variant='subtitle1'>Book not found</Typography>
+                </Box>
             )}
         </DefaultLayout>
     );
