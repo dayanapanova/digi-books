@@ -88,8 +88,8 @@ export const signUp = (data, navigate) => async (dispatch) => {
     )
 };
 
-export const logout = (data) => async (dispatch) => {
-    httpClient.post('/user/logout', data).then(
+export const logout = () => async (dispatch) => {
+    httpClient.post('/user/logout').then(
         (response) => dispatch(logoutSuccess(response)),
     )
 };
